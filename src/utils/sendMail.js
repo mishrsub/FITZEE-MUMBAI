@@ -1,5 +1,5 @@
 import { transporter } from "../services/mailer.js";
-import fs from "fs/promises";
+// import fs from "fs/promises";
 
 export const sendingMail = async (user, purpose,URI="") => {
   try {
