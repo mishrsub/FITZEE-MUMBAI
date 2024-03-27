@@ -155,9 +155,9 @@ class AddClass {
         category,
       }
 
-      const file = req?.file?.filename;
-      if(file) {
-        updateData.image = req.file.filename;
+      const file = req.file.filename;
+      if(file) {  
+        updateData.image = req?.file?.filename;
       }
 
       await ProgramModel.findByIdAndUpdate(
