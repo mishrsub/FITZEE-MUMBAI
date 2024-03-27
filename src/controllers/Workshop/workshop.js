@@ -233,7 +233,7 @@ class Workshop {
         throw new ErrHandle(404, "Workshop not found.");
       }
 
-      return res.status(200).json({ status: 200, workshopDetail: getWorkshop[0] ?? {} });
+      return res.status(200).json({ status: 200, workshopDetail: getWorkshop[0] || {} });
     } catch (error) {
       console.log(error);
       return res.status(400).json({ status: 400, message: error.message });
