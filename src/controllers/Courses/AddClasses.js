@@ -11,8 +11,8 @@ class AddClass {
       const { className } = req.body;
 
       const newClass = await ClassModel.findOneAndUpdate(
-        { name: className,type: "programs" },
-        { name: className,type:"programs" },
+        { name: className, type: "programs" },
+        { name: className, type: "programs" },
         { upsert: true, new: true }
       );
 
@@ -116,7 +116,7 @@ class AddClass {
       }
 
       const isExistProgram = program.subprograms.some(
-        (val) => val?.name === subprogramName?.toLowerCase()
+        (val) => val.name === subprogramName.toLowerCase()
       );
 
       if (isExistProgram) {
@@ -432,11 +432,11 @@ class AddClass {
   getAllClass = async (req, res) => {
     try {
       const { className, isDeleted } = req.query;
-      const filter = { type : "programs"};
+      const filter = { type: "programs" };
 
       if (className) {
         filter.name = className;
-      } 
+      }
       // if(isDeleted) {
       //   filter.isDeleted = Boolean(isDeleted)
       // }
@@ -457,7 +457,7 @@ class AddClass {
           $project: {
             _id: 1,
             name: 1,
-            type:1,
+            type: 1,
             programs: 1,
           },
         },
@@ -482,19 +482,19 @@ class AddClass {
         syllabusCovered,
         subjectTaught,
         goals,
-        programSummary
+        programSummary,
       } = req.body;
 
       //  carosImg
 
-      console.log('====================================');
-      console.log("FILES ADDED: ",programSummary);
-      console.log('====================================');
+      console.log("====================================");
+      console.log("FILES ADDED: ", programSummary);
+      console.log("====================================");
       const program = await ProgramModel.findOne({
         _id: programId,
         "subprograms._id": subProgramId,
       });
-      
+
       if (!program) {
         throw new ErrHandle(404, "Program not found.");
       }
@@ -509,7 +509,6 @@ class AddClass {
         throw new ErrHandle(400, "Program detail already exist.");
       }
 
-
       const addedProgram = await ProgramDetail.create({
         programId,
         subProgramId,
@@ -520,7 +519,7 @@ class AddClass {
         syllabusCovered,
         subjectTaught,
         goals,
-        programSummary:JSON.parse(programSummary)
+        programSummary: JSON.parse(programSummary),
       });
 
       await ProgramModel.findOneAndUpdate(
