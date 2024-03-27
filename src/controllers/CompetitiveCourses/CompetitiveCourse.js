@@ -158,7 +158,7 @@ class AddClass {
       //changes in this line
       const file = req.file.filename;
       if(file) {  
-        updateData.image = req?.file?.filename;
+        updateData.image = req.file.filename;
       }
 
       await ProgramModel.findByIdAndUpdate(
