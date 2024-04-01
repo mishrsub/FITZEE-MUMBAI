@@ -483,12 +483,13 @@ class AddClass {
         subjectTaught,
         goals,
         programSummary,
+        batchStartDate
       } = req.body;
 
       //  carosImg
 
       console.log("====================================");
-      console.log("FILES ADDED: ", programSummary);
+      console.log("FILES ADDED: ", req.body);
       console.log("====================================");
       const program = await ProgramModel.findOne({
         _id: programId,
@@ -520,6 +521,7 @@ class AddClass {
         subjectTaught,
         goals,
         programSummary: JSON.parse(programSummary),
+        batchStartDate: JSON.parse(batchStartDate),
       });
 
       await ProgramModel.findOneAndUpdate(

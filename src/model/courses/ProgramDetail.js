@@ -71,8 +71,21 @@ const programDetailSchema = new mongoose.Schema({
     ratingOfCourse:{
       type:Number
     }
+  },
+  batchStartDate:{
+    date:{
+      type:Date
+    },
+    day:{
+      type:String
+    },
+    center:{
+      type:String
+    },
+    batch:{
+      type:String
+    }
   }
-
 });
 
 export const ProgramDetail = new mongoose.model(
