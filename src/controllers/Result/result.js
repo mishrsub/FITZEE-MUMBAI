@@ -151,14 +151,20 @@ class Result {
             const { id } = req.params;
             const { programName, eligibleClass, subjectsCovered, date } =
                 req.body;
+            const img = req.file.filename;
+            const editedData = {
+                programName,
+                eligibleClass,
+                subjectsCovered,
+                date,
+            }
+
+            if(req?.file) {
+                editedData.programImg = img;
+            }
 
             const saveResult = await ResultModel.findByIdAndUpdate(id, {
-                $set: {
-                    programName,
-                    eligibleClass,
-                    subjectsCovered,
-                    date,
-                },
+                $set: editedData,
             });
 
             return res
