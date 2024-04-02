@@ -483,7 +483,8 @@ class AddClass {
         subjectTaught,
         goals,
         programSummary,
-        batchStartDate
+        batchStartDate,
+        keyword
       } = req.body;
 
       //  carosImg
@@ -522,6 +523,7 @@ class AddClass {
         goals,
         programSummary: JSON.parse(programSummary),
         batchStartDate: JSON.parse(batchStartDate),
+        keyword
       });
 
       await ProgramModel.findOneAndUpdate(

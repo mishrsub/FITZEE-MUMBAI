@@ -85,7 +85,13 @@ const programDetailSchema = new mongoose.Schema({
     batch:{
       type:String
     }
-  }
+  },
+  keyword:[
+    {
+      keywordName:String,
+      fullForm:String
+    }
+  ]
 });
 
 export const ProgramDetail = new mongoose.model(
