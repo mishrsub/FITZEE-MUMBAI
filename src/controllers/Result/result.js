@@ -151,22 +151,22 @@ class Result {
             const { id } = req.params;
             const { programName, eligibleClass, subjectsCovered, date } =
                 req.body;
-            const img = req.file.filename;
+            const img = req.file?.filename; // Optional chaining to safely access filename
             const editedData = {
                 programName,
                 eligibleClass,
                 subjectsCovered,
                 date,
-            }
-
-            if(req?.file) {
+            };
+    
+            if (img) {
                 editedData.programImg = img;
             }
-
+    
             const saveResult = await ResultModel.findByIdAndUpdate(id, {
                 $set: editedData,
             });
-
+    
             return res
                 .status(200)
                 .json({ status: 200, message: "Result updated successfully." });
@@ -176,6 +176,7 @@ class Result {
                 .json({ status: 400, message: error.message });
         }
     };
+    
 
     deleteResult = async (req, res) => {
         try {
