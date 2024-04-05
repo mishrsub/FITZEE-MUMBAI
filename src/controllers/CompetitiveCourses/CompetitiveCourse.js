@@ -156,7 +156,7 @@ class AddClass {
       }
 
       //changes in this line
-      const file = req.file.filename;
+      const file = req.file?.filename;
       if(file) {  
         updateData.image = req.file.filename;
       }
