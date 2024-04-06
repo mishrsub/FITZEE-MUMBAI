@@ -694,7 +694,7 @@ class AddClass {
   };
 
   //adding review
-  addReview = async (req, res) => {
+ addReview = async (req, res) => {
     try {
       const {
         programId,
@@ -706,34 +706,31 @@ class AddClass {
         message,
         rating,
       } = req.body;
-
+  
       const program = await ProgramModel.findOne({
         _id: programId,
         "subprograms._id": subprogramId,
       });
-
+  
       if (!program) {
         throw new ErrHandle(404, "Subprogram not found.");
       }
-
+  
       const subProgram = program.subprograms.find(
-        (val) => val._id.toString() == subprogramId
+        (val) => val._id.toString() === subprogramId
       );
-
-      console.log(subProgram);
-
+  
       const totalRating = subProgram.review.reduce(
         (sum, review) => sum + review.rating,
         0
       );
-
+  
       // Check if there are no reviews yet to avoid dividing by zero
       const averageRating =
         subProgram.numOfReviews === 0
-          ? 0
-          : totalRating / subProgram.numOfReviews;
-
-      console.log(averageRating);
+          ? rating
+          : parseFloat((totalRating + rating) / (subProgram.numOfReviews + 1));
+  
       const newReview = {
         name,
         email,
@@ -743,13 +740,13 @@ class AddClass {
         rating,
         averageRating,
       };
-
+  
       subProgram.review.push(newReview);
       subProgram.numOfReviews += 1;
-      subProgram.averageRating = newReview.averageRating;
-
+      subProgram.averageRating = averageRating;
+  
       await program.save();
-
+  
       return res
         .status(201)
         .json({ status: 201, message: "Review added successfully." });
@@ -757,6 +754,7 @@ class AddClass {
       return res.status(400).json({ status: 400, error: error.message });
     }
   };
+  
 
   getReviews = async (req, res) => {
     try {
