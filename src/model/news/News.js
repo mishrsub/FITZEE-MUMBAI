@@ -1,6 +1,17 @@
 import mongoose from "mongoose";
 
 const newsSchema = new mongoose.Schema({
+    commentId: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Blog-comment",
+      },
+    ],
+    image: {
+      type: String,
+      // required: true,
+      trim: true,
+    },
     title:{
         type:String,
         required:true

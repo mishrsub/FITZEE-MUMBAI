@@ -1,5 +1,6 @@
 import { ErrHandle } from "../../utils/ErrorHandler.js";
 import { NewsModel } from "../../model/news/News.js";
+import NewsComment from "../../model/news/NewsComments.js";
 
 class MainNews {
     addNews = async (req, res) => {
@@ -130,6 +131,65 @@ class MainNews {
             return res.status(400).json({ status: 400, error: error.message });
         }
     };
+
+    createComment = async (req, res) => {
+        try {
+          const {newsId } = req.params;
+          const { name,email,phone,description } = req.body;
+    
+          const news = await NewsModel.findById(newsId);
+    
+          if (!news) {
+            throw new ErrHandle(404, "News not found.");
+          }
+    
+          const comment = await NewsComment.create({
+            name,
+            description,
+            email,
+            phone
+          });
+    
+          news.commentId.push(comment._id);
+          await news.save();
+    
+          return res
+            .status(201)
+            .json({ status: 201, message: "Comment added Successfully." });
+        } catch (error) {
+          return res.status(400).json({ status: 400, error: error.message });
+        }
+      };
+    
+      getAllComments = async (req, res) => {
+        try {
+          const comments = await NewsComment.find({});
+    
+          return res.status(200).json({ status: 200, comments });
+        } catch (error) {
+          return res.status(400).json({ status: 400, error: error.message });
+        }
+      };
+    
+      getParticularNewsComments = async(req,res) =>{
+        try {
+            const { newsId } = req.params;
+    
+            const news = await NewsModel.findById(blogId);
+    
+            if (!news) {
+              throw new ErrHandle(404, "News not found.");
+            }
+    
+            const comments = await NewsComment.find({
+                _id: { $in: news.commentId } // Query for comments where the _id matches the blog.commentId
+            });
+    
+            return res.status(200).json({ status: 200, comments });
+        } catch (error) {
+            return res.status(400).json({ status: 400, error: error.message });
+        }
+      }
 }
 
 const mainNews = new MainNews();

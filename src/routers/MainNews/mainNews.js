@@ -17,4 +17,7 @@ router.route("/deleteNews/:id")
 router.route("/like/:id")
 .post(mainNews.toggleLikeNews);
 
+router.route("/comment/:newsId").post(mainNews.createComment).get(mainNews.getParticularNewsComments);
+router.route("/comments").get(mainNews.getAllComments);
+
 export default router;
