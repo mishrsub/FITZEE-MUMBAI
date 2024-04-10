@@ -22,6 +22,10 @@ const admissionTest = new mongoose.Schema({
     isDeleted:{
         type:Boolean,
         default:false
+    },
+    enable:{
+        type:Boolean,
+        default:false
     }
 },
 {

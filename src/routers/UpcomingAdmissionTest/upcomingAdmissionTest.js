@@ -5,6 +5,9 @@ import { upcomingTest } from "../../controllers/UpcomingAdmissionTest/upcomingAd
 router.route("/addUpcomingUpcomingTest")
 .post(upcomingTest.addAdmissionTest);
 
+router.route("/enableDisable/:id")
+.post(upcomingTest.enabledTest);
+
 router.route("/getUpcomingTest")
 .get(upcomingTest.getAdmissionTest);
 
