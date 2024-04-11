@@ -2,14 +2,22 @@ import mongoose from "mongoose";
 
 const faqSchema = new mongoose.Schema(
   {
-    title: {
+    heading:{
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
+    description:[
+      {
+        title: {
+          type: String,
+          required: true,
+        },
+        text: {
+          type: String,
+          required: true,
+        },
+      }
+    ],
     status: {
       type: String,
       default: "enable",

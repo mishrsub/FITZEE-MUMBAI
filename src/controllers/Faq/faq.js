@@ -4,9 +4,9 @@ import { ErrHandle } from "../../utils/ErrorHandler.js";
 class Faq {
     addFaq = async(req,res) =>{
         try {
-            const { title,description } = req.body;
-            
-            const question = await FaqModel.create({ title,description });
+            const { heading,description } = req.body;
+
+            const question = await FaqModel.create({ heading,description });
             
             return res.status(201).json({status:201,message:"Faq saved successfully"})
         } catch (error) {
