@@ -8,5 +8,5 @@ router.route("/")
 
 router.route("/:id")
 .delete(faq.deleteFaq);
-
+    
 export default router;
