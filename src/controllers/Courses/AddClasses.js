@@ -441,6 +441,8 @@ class AddClass {
       //   filter.isDeleted = Boolean(isDeleted)
       // }
 
+    const countClass = await ClassModel.countDocuments();
+
       const pipeline = [
         {
           $match: filter,
@@ -465,7 +467,7 @@ class AddClass {
 
       const result = await ClassModel.aggregate(pipeline);
 
-      return res.status(200).json({ status: 200, class: result });
+      return res.status(200).json({ status: 200, class: result,count:countClass });
     } catch (error) {
       return res.status(400).json({ status: 400, error: error.message });
     }

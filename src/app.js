@@ -32,6 +32,7 @@ console.log("Image path:", imagePath);
 
 // Serve images
 app.use("/uploads", express.static(join(__dirname, "../uploads")));
+app.use("/downloads", express.static(join(__dirname, "../downloads")));
 app.use("/api", router);
 
 app.all("*", (req, res, next) => {

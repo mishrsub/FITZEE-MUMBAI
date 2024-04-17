@@ -7,18 +7,18 @@ const programDetailSchema = new mongoose.Schema({
   programDetailImg: [
     {
       type: String,
-      required: true,
+      required: [true,"Program detail image is required"],
       trim: true,
     },
   ],
   programBrief: {
     type: String,
-    required: true,
+    required: [true,"Program brief is required"],
     trim: true,
   },
   programDescription: {
     type: String,
-    required: true,
+    required: [true,"Program description is required"],
     trim: true,
   },
   programStatus: {
@@ -42,20 +42,20 @@ const programDetailSchema = new mongoose.Schema({
   ],
   syllabusCovered:{
     type: String,
-    required: true,
+    required: [true,"syllabusCovered field is required."],
     trim: true,
   },
   subjectTaught:[
     {
       type:String,
-      required:true,
+      required:[true,"subject is required."],
       trim: true,
     }
   ],
   goals:[
     {
       type:String,
-      required:true
+      required:[true,"goals is required"]
     }
   ],
   programSummary:{
