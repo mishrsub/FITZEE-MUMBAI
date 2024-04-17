@@ -233,5 +233,5 @@ const download = new Download();
 export { download };
 
 //another way delete sub menu
-// menu.subMenus.splice(fileIndex, 1);
+// menu.subMenus.splice(fileIndex, 1);;
 // await menu.save();
