@@ -57,4 +57,6 @@ router.route("/getGroups").get(addClass.getGroups);
 
 router.route("/group/:id").get(addClass.getGroupDataById);
 
+router.route("/separate/programs").get(addClass.getParticularSeparatePrograms);
+
 export default router;

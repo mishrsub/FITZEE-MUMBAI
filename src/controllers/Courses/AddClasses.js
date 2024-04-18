@@ -892,6 +892,68 @@ class AddClass {
             return res.status(400).json({ status: 400, error: error.message });
         }
     };
+
+    //filter particular programs
+    getParticularSeparatePrograms = async (req, res) => {
+        try {
+            const { isDeleted } = req.query;
+            const filter = { type: "programs" };
+
+            // If you want to compare with hardcoded class names directly
+            const classNames = ["VI", "VII", "VIII", "IX", "X", "XI"];
+
+            // Modify the filter to directly include class names
+            filter.name = { $in: classNames };
+
+            const countClass = await ClassModel.countDocuments();
+
+            const pipeline = [
+                {
+                    $match: filter,
+                },
+                {
+                    $lookup: {
+                        from: "programs",
+                        localField: "programs",
+                        foreignField: "_id",
+                        as: "programs",
+                    },
+                },
+                {
+                    $unwind: "$programs",
+                },
+                {
+                    $match: {
+                        "programs.name": "offline classroom programs",
+                    },
+                },
+                {
+                    $group: {
+                        _id: {
+                            _id: "$_id",
+                            name: "$name",
+                            type: "$type",
+                        },
+                        programs: { $push: "$programs" },
+                    },
+                },
+                {
+                    $project: {
+                        _id: "$_id._id",
+                        name: "$_id.name",
+                        type: "$_id.type",
+                        programs: 1,
+                    },
+                },
+            ];
+
+            const result = await ClassModel.aggregate(pipeline);
+
+            return res.status(200).json({ status: 200, class: result });
+        } catch (error) {
+            return res.status(400).json({ status: 400, error: error.message });
+        }
+    };
 }
 
 const addClass = new AddClass();
