@@ -907,6 +907,16 @@ class AddClass {
 
             const countClass = await ClassModel.countDocuments();
 
+            const subProgramNames = [
+                "math genie one year foundation program",
+                "ascent one year classroom program",
+                "udaya-two year classroom program- weekend contact classes",
+                "udaya-one year classroom program- weekend contact classes (8052)",
+                "ascent-two year classroom program",
+                // ""
+            ]; // Add your subprogram names here
+            const className = ["VI", "X", "VII", "VIII", "IX"]; // Add your class names here
+
             const pipeline = [
                 {
                     $match: filter,
@@ -925,6 +935,15 @@ class AddClass {
                 {
                     $match: {
                         "programs.name": "offline classroom programs",
+                    },
+                },
+                {
+                    $unwind: "$programs.subprograms",
+                },
+                {
+                    $match: {
+                        "programs.subprograms.name": { $in: subProgramNames },
+                        name: { $in: className },
                     },
                 },
                 {
@@ -949,7 +968,7 @@ class AddClass {
 
             const result = await ClassModel.aggregate(pipeline);
 
-            return res.status(200).json({ status: 200, class: result });
+            return res.status(200).json({ status: 200, classItem: result });
         } catch (error) {
             return res.status(400).json({ status: 400, error: error.message });
         }
