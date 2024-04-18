@@ -3,15 +3,24 @@ import { ClassModel } from "../../model/courses/Class.js";
 import { ProgramModel } from "../../model/competitiveExam/Program.js";
 import { ErrHandle } from "../../utils/ErrorHandler.js";
 import { ProgramDetail } from "../../model/competitiveExam/ProgramDetail.js";
+import { GroupModel } from "../../model/courses/group.js";
 
 class AddClass {
   addClass = async (req, res) => {
     try {
-      const { className } = req.body;
+      const { groupName,className } = req.body;
+
+       // Find the group by its name
+       const group = await GroupModel.findOne({ name: groupName });
+
+       if (!group) {
+           return res.status(404).json({ status: 404, message: "Group not found." });
+       }
+
       console.log("classname3");
       const newClass = await ClassModel.findOneAndUpdate(
         { name: className, type: "competitive" },
-        { name: className, type: "competitive" },
+        { name: className, type: "competitive",groupId:group._id },
         { upsert: true, new: true }
       );
 

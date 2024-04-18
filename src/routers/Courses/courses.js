@@ -51,4 +51,10 @@ router.route("/program/review").post(addClass.addReview);
 
 router.route("/program/review/:subProgramId").get(addClass.getReviews);
 
+router.route("/addGroup").post(addClass.addGroup);
+
+router.route("/getGroups").get(addClass.getGroups);
+
+router.route("/group/:id").get(addClass.getGroupDataById);
+
 export default router;

@@ -10,8 +10,11 @@ const classSchema = new mongoose.Schema({
      type:{
           type:String,
           enum:["programs","competitive"]
+     },
+     groupId:{
+          type:mongoose.Types.ObjectId
      }
-});
+},{timestamps:true});
 
 const ClassModel = mongoose.model('Class', classSchema);
 

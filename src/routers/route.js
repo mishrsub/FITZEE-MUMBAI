@@ -12,6 +12,7 @@ import faqRouter from "../routers/Faq/faq.js";
 import adminRoute from "../routers/user/admin.js";
 import downloadRoute from "../routers/download/download.js";
 import admissionTestRoute from "../routers/AdmissionTest/admissionTest.js";
+import eventRouter from "../routers/Event/event.js";
 
 import express from "express";
 const router = new express.Router();
@@ -24,6 +25,7 @@ router.use("/upcomingTest", upcomingTestRoute);
 router.use("/course", courseRoute);
 router.use("/course/competitive", competitiveCourseRoute);
 router.use("/course/result", resultRouter);
+router.use("/event", eventRouter);
 router.use("/workshop", workshopRouter);
 router.use("/mainNews", mainNewsRouter);
 router.use("/contact", contactRoute);
