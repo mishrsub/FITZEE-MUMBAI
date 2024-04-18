@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 
 export const upload = multer({ storage });
 
-///////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 const storageData = multer.diskStorage({
     destination: function (req, file, cb) {
         // Set upload directory
