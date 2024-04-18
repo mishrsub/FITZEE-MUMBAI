@@ -916,7 +916,6 @@ class AddClass {
                 // ""
             ]; // Add your subprogram names here
             const className = ["VI", "X", "VII", "VIII", "IX"]; // Add your class names here
-
             const pipeline = [
                 {
                     $match: filter,
@@ -952,8 +951,24 @@ class AddClass {
                             _id: "$_id",
                             name: "$name",
                             type: "$type",
+                            programId: "$programs._id", // Group by program ID
                         },
-                        programs: { $push: "$programs" },
+                        subprograms: { $push: "$programs.subprograms" }, // Push subprograms into an array
+                    },
+                },
+                {
+                    $group: {
+                        _id: {
+                            _id: "$_id._id",
+                            name: "$_id.name",
+                            type: "$_id.type",
+                        },
+                        programs: {
+                            $push: {
+                                _id: "$_id.programId",
+                                subprograms: "$subprograms",
+                            },
+                        },
                     },
                 },
                 {
